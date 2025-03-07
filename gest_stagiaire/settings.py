@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'candidature',
     'stage',
     'evaluation',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,9 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'gest_stagiaire.urls'
@@ -121,8 +124,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+media_url = 'media/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    BASE_DIR / "media",
+]
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = media_url
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APPEND_SLASH = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Frontend local
+    'https://votresite.com',  # Exemple d'URL en production
+]
+
